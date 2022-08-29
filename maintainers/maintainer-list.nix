@@ -15109,4 +15109,10 @@
     github = "yisuidenghua";
     githubId = 102890144;
   };
+  litchipi = {
+    name = "Tim";
+    email = "litchi.pi@proton.me";
+    github = "litchipi";
+    githubId = 61109829;
+  };
 }
