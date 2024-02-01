@@ -2,6 +2,7 @@
 , callPackage
 , fetchFromGitHub
 , makeWrapper
+, nixosTests
 , python3
 , writeShellScript
 }:
@@ -107,6 +108,10 @@ in python.pkgs.buildPythonPackage rec {
   checkInputs = with python.pkgs; [
     pytestCheckHook
   ];
+
+  passthru.tests = {
+    inherit (nixosTests) mealie;
+  };
 
   meta = with lib; {
     description = "A self hosted recipe manager and meal planner";
