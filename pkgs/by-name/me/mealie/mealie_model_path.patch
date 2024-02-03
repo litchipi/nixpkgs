@@ -1,0 +1,18 @@
+diff --git a/mealie/services/parser_services/crfpp/processor.py b/mealie/services/parser_services/crfpp/processor.py
+index d0bf1b69..6911d4bd 100644
+--- a/mealie/services/parser_services/crfpp/processor.py
++++ b/mealie/services/parser_services/crfpp/processor.py
+@@ -1,3 +1,4 @@
++import os
+ import subprocess
+ import tempfile
+ from fractions import Fraction
+@@ -11,7 +12,7 @@ from . import utils
+ from .pre_processor import pre_process_string
+ 
+ CWD = Path(__file__).parent
+-MODEL_PATH = CWD / "model.crfmodel"
++MODEL_PATH = os.getenv("CRF_MODEL_PATH", default=CWD / "model.crfmodel")
+ 
+ 
+ class CRFConfidence(BaseModel):

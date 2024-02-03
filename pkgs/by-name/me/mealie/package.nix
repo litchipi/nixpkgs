@@ -47,6 +47,7 @@ in python.pkgs.buildPythonPackage rec {
     # See https://github.com/mealie-recipes/mealie/pull/3102
     # Replace hardcoded paths in code with environment variables (meant for inside Docker only)
     # So we can configure easily where the data is stored on the server
+    ./mealie_model_path.patch
     ./mealie_init_db.patch
     ./mealie_logger.patch
   ];
