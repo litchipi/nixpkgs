@@ -111,9 +111,9 @@ in python.pkgs.buildPythonPackage rec {
 
     makeWrapper ${start_script} $out/bin/mealie \
       --set PYTHONPATH "$out/${python.sitePackages}:${python.pkgs.makePythonPath propagatedBuildInputs}" \
-      --prefix PATH ${lib.makeBinPath [ crfpp ]} \
       --set LD_LIBRARY_PATH "${crfpp}/lib" \
-      --set STATIC_FILES ${frontend}
+      --set STATIC_FILES "${frontend}" \
+      --prefix PATH "${lib.makeBinPath [ crfpp ]}"
 
     makeWrapper ${init_db} $out/libexec/init_db \
       --set PYTHONPATH "$out/${python.sitePackages}:${python.pkgs.makePythonPath propagatedBuildInputs}" \
