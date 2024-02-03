@@ -4,6 +4,7 @@
 , makeWrapper
 , nixosTests
 , python3
+, stdenv
 , writeShellScript
 }:
 
@@ -21,6 +22,17 @@ let
   python = python3.override {
     packageOverrides = self: super: {
       pydantic = self.pydantic_1;
+    };
+  };
+
+  crfpp = stdenv.mkDerivation {
+    pname = "mealie-crfpp";
+    version = "master";
+    src = fetchFromGitHub {
+      owner = "mealie-recipes";
+      repo = "crfpp";
+      rev = "c56dd9f29469c8a9f34456b8c0d6ae0476110516";
+      sha256 = "sha256-XNps3ZApU8m07bfPEnvip1w+3hLajdn9+L5+IpEaP0c=";
     };
   };
 
@@ -47,6 +59,7 @@ in python.pkgs.buildPythonPackage rec {
 
   dontWrapPythonPrograms = true;
 
+  doCheck = false;
   pythonRelaxDeps = true;
 
   propagatedBuildInputs = with python.pkgs; [
@@ -98,6 +111,8 @@ in python.pkgs.buildPythonPackage rec {
 
     makeWrapper ${start_script} $out/bin/mealie \
       --set PYTHONPATH "$out/${python.sitePackages}:${python.pkgs.makePythonPath propagatedBuildInputs}" \
+      --prefix PATH ${lib.makeBinPath [ crfpp ]} \
+      --set LD_LIBRARY_PATH "${crfpp}/lib" \
       --set STATIC_FILES ${frontend}
 
     makeWrapper ${init_db} $out/libexec/init_db \
