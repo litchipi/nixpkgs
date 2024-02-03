@@ -64,6 +64,7 @@ in
         ALEMBIC_CONFIG_FPATH="${pkg}/config/alembic.ini";
         API_PORT = toString cfg.port;
         DATA_DIR = "/var/lib/mealie";
+        CRF_MODEL_PATH = "/var/lib/mealie/model.crfmodel";
       } // (builtins.mapAttrs (_: val: toString val) cfg.settings);
 
       serviceConfig = {
