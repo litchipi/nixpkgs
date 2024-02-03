@@ -113,7 +113,7 @@ in python.pkgs.buildPythonPackage rec {
       --set PYTHONPATH "$out/${python.sitePackages}:${python.pkgs.makePythonPath propagatedBuildInputs}" \
       --set LD_LIBRARY_PATH "${crfpp}/lib" \
       --set STATIC_FILES "${frontend}" \
-      --prefix PATH "${lib.makeBinPath [ crfpp ]}"
+      --set PATH "${lib.makeBinPath [ crfpp ]}"
 
     makeWrapper ${init_db} $out/libexec/init_db \
       --set PYTHONPATH "$out/${python.sitePackages}:${python.pkgs.makePythonPath propagatedBuildInputs}" \
