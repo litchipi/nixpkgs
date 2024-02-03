@@ -101,6 +101,7 @@ in python.pkgs.buildPythonPackage rec {
       ${lib.getExe python.pkgs.gunicorn} "$@" -k uvicorn.workers.UvicornWorker mealie.app:app;
     '';
     init_db = writeShellScript "init-mealie-db" ''
+      ${python.interpreter} $OUT/${python.sitePackages}/mealie/scripts/install_model.py
       ${python.interpreter} $OUT/${python.sitePackages}/mealie/db/init_db.py
     '';
   in ''
